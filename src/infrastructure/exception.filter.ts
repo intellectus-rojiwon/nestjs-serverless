@@ -48,9 +48,10 @@ export class ExceptionFilter implements nest.ExceptionFilter {
                 +exception.status,
             );
 
+        console.log(exception);
         httpAdapter.reply(
             res,
-            'NTERNAL_SERVER_ERROR',
+            { code: 'NTERNAL_SERVER_ERROR' },
             nest.HttpStatus.INTERNAL_SERVER_ERROR,
         );
     }

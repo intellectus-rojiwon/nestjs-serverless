@@ -7,4 +7,6 @@ export namespace ErrorCode {
     export type ArticleNotFound = 'Article Not Found';
 
     export type UserNotFound = 'User Not Found';
+
+    export type BoardNotFound = 'Board Not Found';
 }

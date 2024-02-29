@@ -1,12 +1,12 @@
 import core from '@nestia/core';
 import * as nest from '@nestjs/common';
 
-import { IArticleGet } from '@APP/app/article/dto/Get';
-import { IArticleGetList } from '@APP/app/article/dto/GetList';
+import { IArticleGet } from '@APP/app/articles/presentation/dto/Get';
+import { IArticleGetList } from '@APP/app/articles/presentation/dto/GetList';
 import { ErrorCode, ErrorResponse } from '@APP/common/ErrorCode';
 import { Regex } from '@APP/common/Regex';
 
-@nest.Controller('articles')
+@nest.Controller('boards/:board_id/articles')
 export class ArticlesController {
     /**
      * 게시글 목록을 불러옵니다.
@@ -17,8 +17,10 @@ export class ArticlesController {
      */
     @core.TypedRoute.Get()
     async getList(
+        @core.TypedParam('board_id') board_id: Regex.UUID,
         @core.TypedQuery() query: IArticleGetList.ISearch,
     ): Promise<IArticleGetList.IResponse> {
+        board_id;
         query;
         throw Error();
     }
@@ -36,8 +38,10 @@ export class ArticlesController {
     )
     @core.TypedRoute.Get(':article_id')
     async get(
+        @core.TypedParam('board_id') board_id: Regex.UUID,
         @core.TypedParam('article_id') article_id: Regex.UUID,
     ): Promise<IArticleGet.IResponse> {
+        board_id;
         article_id;
         throw Error();
     }

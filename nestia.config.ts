@@ -1,11 +1,7 @@
 import type nestia from '@nestia/sdk';
-import { NestFactory } from '@nestjs/core';
-
-import { Router } from '@APP/controllers';
 
 const NESTIA_CONFIG: nestia.INestiaConfig = {
-    input: async () =>
-        NestFactory.create(await Router.mount(), { logger: false }),
+    input: 'src/**/*.controller.ts',
     output: './sdk',
     simulate: false,
     propagate: false,
@@ -16,7 +12,7 @@ const NESTIA_CONFIG: nestia.INestiaConfig = {
         decompose: true,
         output: 'packages/api/swagger/swagger.json',
         servers: [
-            { url: 'https://localhost:4000', description: 'Local Server' },
+            { url: 'http://localhost:4000', description: 'Local Server' },
         ],
         security: {
             bearer: {

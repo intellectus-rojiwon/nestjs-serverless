@@ -4,8 +4,6 @@ import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 
 import { AppModule } from './app/app.module';
-import { Router } from './controllers';
-import { InfraModule } from './infrastructure/infra.module';
 
 export namespace Backend {
     /**
@@ -16,10 +14,7 @@ export namespace Backend {
     */
 
     export const open = async (options: NestApplicationOptions = {}) => {
-        const app = await NestFactory.create(
-            await Router.mount({ imports: [InfraModule, AppModule] }),
-            options,
-        );
+        const app = await NestFactory.create(AppModule, options);
         app.use(cookieParser()).use(
             helmet({ contentSecurityPolicy: true, hidePoweredBy: true }),
         );

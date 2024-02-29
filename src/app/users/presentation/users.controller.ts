@@ -1,12 +1,15 @@
 import core from '@nestia/core';
 import * as nest from '@nestjs/common';
 
-import { IUserGet } from '@APP/app/user/dto/Get';
+import { IUserGet } from '@APP/app/users/presentation/dto/Get';
+import { UsersUsecase } from '@APP/app/users/usecase/users.usecase';
 import { ErrorCode, ErrorResponse } from '@APP/common/ErrorCode';
 import { Regex } from '@APP/common/Regex';
 
 @nest.Controller('users')
 export class UsersController {
+    constructor(readonly usecase: UsersUsecase) {}
+
     /**
      * 사용자 정보를 불러옵니다.
      *
@@ -22,7 +25,6 @@ export class UsersController {
     async get(
         @core.TypedParam('user_id') user_id: Regex.UUID,
     ): Promise<IUserGet.IResponse> {
-        user_id;
-        throw Error();
+        return this.usecase.get(user_id);
     }
 }

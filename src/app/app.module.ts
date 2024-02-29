@@ -1,10 +1,20 @@
 import { Module } from '@nestjs/common';
 
-import { ArticleModule } from './article/article.module';
+import { InfraModule } from './../infrastructure/infra.module';
+import { ArticlesModule } from './articles/articles.module';
 import { AuthModule } from './auth/auth.module';
-import { UserModule } from './user/user.module';
+import { BoardsModule } from './boards/boards.module';
+import { SystemController } from './syetem.controller';
+import { UsersModule } from './users/users.module';
 
 @Module({
-    imports: [UserModule, AuthModule, ArticleModule],
+    imports: [
+        InfraModule,
+        UsersModule,
+        AuthModule,
+        BoardsModule,
+        ArticlesModule,
+    ],
+    controllers: [SystemController],
 })
 export class AppModule {}
