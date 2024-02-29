@@ -1,4 +1,4 @@
-import { INestApplication, NestApplicationOptions } from '@nestjs/common';
+import { NestApplicationOptions } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
@@ -19,12 +19,9 @@ export namespace Backend {
             helmet({ contentSecurityPolicy: true, hidePoweredBy: true }),
         );
         process.on('SIGINT', async () => {
-            await close(app);
+            await app.close();
             process.exit(0);
         });
         return app;
-    };
-    export const close = async (app: INestApplication) => {
-        await app.close();
     };
 }
