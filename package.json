@@ -47,8 +47,10 @@
         "cookie-parser": "^1.4.6",
         "dotenv": "^16.4.5",
         "helmet": "^7.1.0",
+        "nest-winston": "^1.9.4",
         "rxjs": "^7.8.1",
-        "typia": "^5.4.13"
+        "typia": "^5.4.13",
+        "winston": "^3.11.0"
     },
     "devDependencies": {
         "@nestia/e2e": "^0.4.1",
