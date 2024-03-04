@@ -31,6 +31,5 @@ interface IEnv {
     /** @default 4000 */
     readonly PORT: number;
     // readonly DATABASE_URL: string;
-    readonly AWS_REGION: string;
     readonly AWS_LOG_GROUP: string;
 }

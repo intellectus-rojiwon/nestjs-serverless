@@ -4,7 +4,6 @@ import {
 } from '@aws-sdk/client-cloudwatch-logs';
 import * as nest from '@nestjs/common';
 import { Writable } from 'stream';
-import stripAnsi from 'strip-ansi';
 import * as winston from 'winston';
 
 import { Configuration } from './config';
@@ -26,7 +25,7 @@ const transports: winston.transport =
                           logStreamName: Configuration.NODE_ENV,
                           logEvents: [
                               {
-                                  message: stripAnsi(chunk.toString()),
+                                  message: chunk.toString(),
                                   timestamp: Date.now(),
                               },
                           ],
