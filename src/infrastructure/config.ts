@@ -33,5 +33,4 @@ interface IEnv {
     // readonly DATABASE_URL: string;
     readonly AWS_REGION: string;
     readonly AWS_LOG_GROUP: string;
-    readonly AWS_LOG_STREAM: string;
 }
