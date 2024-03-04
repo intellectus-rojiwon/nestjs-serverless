@@ -24,5 +24,5 @@ RUN mkdir ./prisma
 COPY  --from=builder /usr/src/app/prisma/client ./prisma/client
 COPY  --from=builder /usr/src/app/build ./build
 
-EXPOSE  4000
-CMD [ "node", "build/main" ]
+ENTRYPOINT [ '/lambda-entrypoint.sh' ]
+CMD [ "build/lambda.handler" ]
