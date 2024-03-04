@@ -1,8 +1,6 @@
 import dotenv from 'dotenv';
 import typia from 'typia';
 
-import { Random } from '@APP/utils/random';
-
 const init = () => {
     switch (process.env['NODE_ENV']) {
         case 'development':
@@ -23,8 +21,6 @@ const init = () => {
         ? ({
               PORT: 4000,
               ...process.env,
-              ACCESS_TOKEN_KEY: Random.string(32),
-              REFRESH_TOKEN_KEY: Random.string(32),
           } as unknown as IEnv)
         : typia.assert<IEnv>({ PORT: 4000, ...process.env });
 };
@@ -34,5 +30,5 @@ interface IEnv {
     readonly NODE_ENV: 'development' | 'production' | 'test';
     /** @default 4000 */
     readonly PORT: number;
-    readonly DATABASE_URL: string;
+    readonly DATABASE_URL?: string;
 }

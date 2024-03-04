@@ -22,10 +22,9 @@ functions:
         image:
             name: appimage
             command:
-                - dist/lambda.handler
+                - build/lambda.handler
             entryPoint:
                 - '/lambda-entrypoint.sh'
-        # handler: src/lambda.handler
         events:
             - http:
                   method: any

@@ -15,7 +15,7 @@ RUN apk add --no-cache tini
 
 ENTRYPOINT  ["/sbin/tini", "--"]
 
-FROM  node:20-alpine
+FROM  public.ecr.aws/lambda/nodejs:20
 
 WORKDIR /usr/src/app
 
