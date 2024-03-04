@@ -1,25 +1,28 @@
 name: Lambda Deploy
 
 on:
-  workflow_dispatch:
+    workflow_dispatch:
+
+env:
+    AWS_REGION: ap-northeast-2
 
 jobs:
-  deploy-image:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout 🛎️
-      uses: actions/checkout@main
+    deploy-image:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout 🛎️
+              uses: actions/checkout@main
 
-    - name: Configure AWS credentials 🔒
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ env.AWS_REGION }}
+            - name: Configure AWS credentials 🔒
+              uses: aws-actions/configure-aws-credentials@v2
+              with:
+                  aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                  aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                  aws-region: ${{ env.AWS_REGION }}
 
-    - name: Login to Amazon ECR 🔒
-      id: login-ecr
-      uses: aws-actions/amazon-ecr-login@v1
+            - name: Login to Amazon ECR 🔒
+              id: login-ecr
+              uses: aws-actions/amazon-ecr-login@v1
 
-    - name: Serverless Deploy ✨
-      run: npm run sls:deploy
+            - name: Serverless Deploy ✨
+              run: npm run sls:deploy
