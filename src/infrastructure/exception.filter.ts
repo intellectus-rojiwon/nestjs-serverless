@@ -2,6 +2,8 @@ import * as nest from '@nestjs/common';
 import { HttpAdapterHost } from '@nestjs/core';
 import { Response } from 'express';
 
+import { logger } from './winston';
+
 @nest.Catch()
 export class ExceptionFilter implements nest.ExceptionFilter {
     constructor(private readonly httpAdapterHost: HttpAdapterHost) {}
@@ -10,12 +12,12 @@ export class ExceptionFilter implements nest.ExceptionFilter {
         const { httpAdapter } = this.httpAdapterHost;
         const ctx = host.switchToHttp();
         const res = ctx.getResponse<Response>();
-
         if (this.isHttpException(exception)) {
             const status = exception.getStatus();
             const message = exception.message;
             const code: string | undefined = (exception as any).code;
             if (typeof code === 'string') {
+                logger.warn(exception);
                 httpAdapter.reply(res, { code, message }, status);
                 return;
             }
@@ -23,7 +25,7 @@ export class ExceptionFilter implements nest.ExceptionFilter {
             httpAdapter.reply(res, { code: 'NATIVE_ERROR', message }, status);
             return;
         }
-
+        logger.error(exception);
         httpAdapter.reply(
             res,
             { code: 'NTERNAL_SERVER_ERROR' },

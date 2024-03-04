@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
+import { ErrorCode } from '@APP/common/ErrorCode';
 import { Regex } from '@APP/common/Regex';
 import { logger } from '@APP/infrastructure/winston';
 
@@ -7,8 +8,12 @@ import { logger } from '@APP/infrastructure/winston';
 export class UsersUsecase {
     get(user_id: Regex.UUID) {
         user_id;
-        const error = new Error('test error');
-        logger.error(error);
+
+        logger.error(
+            new NotFoundException({
+                code: 'User Not Found' satisfies ErrorCode.UserNotFound,
+            }),
+        );
         return {};
     }
 }

@@ -51,7 +51,10 @@ const winstonLogger = winston.createLogger({
 const write =
     (level: 'FATAL' | 'ERROR' | 'WARN' | 'LOG' | 'VERBOSE' | 'DEBUG') =>
     (message: unknown): void => {
-        winstonLogger.log(level, JSON.stringify(message));
+        winstonLogger.log(
+            level,
+            JSON.stringify(message).replaceAll('\\n', '\n'),
+        );
     };
 
 export const logger: ILogger = {
