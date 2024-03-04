@@ -10,6 +10,14 @@ jobs:
             - name: Checkout 🛎️
               uses: actions/checkout@main
 
+            - name: Setup NodeJS
+              uses: actions/setup-node@main
+              with:
+                  node-version: 20
+
+            - name: Dependency Install
+              run: npm ci
+
             - name: Configure AWS credentials 🔒
               uses: aws-actions/configure-aws-credentials@v2
               with:
