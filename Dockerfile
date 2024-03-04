@@ -23,6 +23,3 @@ COPY  --from=builder /usr/src/app/node_modules ./node_modules
 RUN mkdir ./prisma
 COPY  --from=builder /usr/src/app/prisma/client ./prisma/client
 COPY  --from=builder /usr/src/app/build ./build
-
-ENTRYPOINT [ '/lambda-entrypoint.sh' ]
-CMD [ "build/lambda.handler" ]
