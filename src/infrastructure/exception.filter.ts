@@ -2,8 +2,6 @@ import * as nest from '@nestjs/common';
 import { HttpAdapterHost } from '@nestjs/core';
 import { Response } from 'express';
 
-import { Failure } from '@APP/utils/failure';
-
 @nest.Catch()
 export class ExceptionFilter implements nest.ExceptionFilter {
     constructor(private readonly httpAdapterHost: HttpAdapterHost) {}
@@ -16,39 +14,16 @@ export class ExceptionFilter implements nest.ExceptionFilter {
         if (this.isHttpException(exception)) {
             const status = exception.getStatus();
             const message = exception.message;
-
-            httpAdapter.reply(
-                res,
-                status === nest.HttpStatus.NOT_FOUND
-                    ? {
-                          code: 'NOT_FOUND_PATH',
-                          message,
-                      }
-                    : status === nest.HttpStatus.BAD_REQUEST
-                      ? {
-                            code: 'INVALID_INPUT',
-                            message,
-                        }
-                      : {
-                            code: 'UNKNOWN_ERROR',
-                            message,
-                        },
-                status,
-            );
+            const code: string | undefined = (exception as any).code;
+            if (typeof code === 'string') {
+                httpAdapter.reply(res, { code, message }, status);
+                return;
+            }
+            // exception from nestjs framwork or nestia lib
+            httpAdapter.reply(res, { code: 'NATIVE_ERROR', message }, status);
             return;
         }
 
-        if (exception instanceof Failure)
-            httpAdapter.reply(
-                res,
-                {
-                    code: exception.message,
-                    message: exception.cause,
-                },
-                +exception.status,
-            );
-
-        console.log(exception);
         httpAdapter.reply(
             res,
             { code: 'NTERNAL_SERVER_ERROR' },
