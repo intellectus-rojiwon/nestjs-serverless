@@ -8,7 +8,9 @@ let _handler: Handler | null = null;
 
 const bootstrap = async (): Promise<Handler> => {
     const app = await Backend.open({ logger });
-    logger.log('nest application 생성');
+    logger.warn('init start');
+    await app.init();
+    logger.warn('init end');
     return sls({ app: app.getHttpAdapter().getInstance() });
 };
 
