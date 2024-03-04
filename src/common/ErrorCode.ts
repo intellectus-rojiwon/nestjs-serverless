@@ -4,9 +4,9 @@ export interface ErrorResponse<T> {
 }
 
 export namespace ErrorCode {
-    export type ArticleNotFound = 'Article Not Found';
+    export type ArticleNotFound = 'ARTICLE_NOT_FOUND';
 
-    export type UserNotFound = 'User Not Found';
+    export type UserNotFound = 'USER_NOT_FOUND';
 
-    export type BoardNotFound = 'Board Not Found';
+    export type BoardNotFound = 'BOARD_NOT_FOUND';
 }

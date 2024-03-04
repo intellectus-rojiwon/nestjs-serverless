@@ -15,7 +15,8 @@ export class ExceptionFilter implements nest.ExceptionFilter {
         if (this.isHttpException(exception)) {
             const status = exception.getStatus();
             const message = exception.message;
-            const code: string | undefined = (exception as any).code;
+            const code: string | undefined = (exception.getResponse() as any)
+                ?.code;
             if (typeof code === 'string') {
                 logger.warn(exception);
                 httpAdapter.reply(res, { code, message }, status);

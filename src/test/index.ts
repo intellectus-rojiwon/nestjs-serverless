@@ -9,7 +9,7 @@ import { Test } from './runner';
 void (async () => {
     console.time('test time');
     Mocker.run();
-    const app = await Backend.open();
+    const app = await Backend.open({ logger: false });
     await app.listen(Configuration.PORT);
     const connection: IConnection = {
         host: `http://localhost:${Configuration.PORT}`,

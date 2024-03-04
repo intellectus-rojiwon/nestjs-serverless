@@ -25,6 +25,7 @@ export class UsersController {
     async get(
         @core.TypedParam('user_id') user_id: Regex.UUID,
     ): Promise<IUserGet.IResponse> {
-        return this.usecase.get(user_id);
+        this.usecase.get(user_id);
+        return {};
     }
 }
