@@ -37,7 +37,6 @@
         "serverless"
     ],
     "dependencies": {
-        "@aws-sdk/client-cloudwatch-logs": "^3.525.0",
         "@codegenie/serverless-express": "^4.13.0",
         "@nestia/core": "^2.5.12",
         "@nestia/fetcher": "^2.5.12",
