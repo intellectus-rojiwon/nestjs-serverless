@@ -2,11 +2,12 @@ import sls from '@codegenie/serverless-express';
 import { Handler } from 'aws-lambda';
 
 import { Backend } from './backend';
+import { logger } from './infrastructure/winston';
 
 let _handler: Handler | null = null;
 
 const bootstrap = async (): Promise<Handler> => {
-    const app = await Backend.open({ logger: false });
+    const app = await Backend.open({ logger });
     return sls({ app: app.getHttpAdapter().getInstance() });
 };
 
