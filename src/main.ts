@@ -1,10 +1,10 @@
 import { Backend } from './backend';
 import { Configuration } from './infrastructure/config';
-import { WinstonLogger } from './infrastructure/winston';
+import { logger } from './infrastructure/winston';
 
 const bootstrap = () =>
     Backend.open({
-        logger: WinstonLogger,
+        logger,
         cors: { credentials: false },
     }).then((app) => app.listen(Configuration.PORT));
 
