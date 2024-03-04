@@ -1,6 +1,6 @@
 import { Backend } from './backend';
 import { Configuration } from './infrastructure/config';
-import { logger } from './infrastructure/winston';
+import { logger } from './infrastructure/logger';
 
 const bootstrap = () =>
     Backend.open({

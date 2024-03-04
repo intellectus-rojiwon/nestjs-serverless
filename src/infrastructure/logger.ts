@@ -1,4 +1,9 @@
+import {
+    CloudWatchLogsClient,
+    PutLogEventsCommand,
+} from '@aws-sdk/client-cloudwatch-logs';
 import * as nest from '@nestjs/common';
+import { Writable } from 'stream';
 import * as winston from 'winston';
 
 import { Configuration } from './config';
@@ -8,10 +13,29 @@ type LogMethod = (message: unknown) => void;
 /** LoggerService interface */
 type ILogger = Readonly<Record<nest.LogLevel, LogMethod>>;
 
+const aws_client = new CloudWatchLogsClient();
+
 const transports: winston.transport =
     Configuration.NODE_ENV === 'production'
         ? new winston.transports.Stream({
-              stream: process.stdout,
+              stream: new Writable({
+                  write(chunk, _, callback) {
+                      const command = new PutLogEventsCommand({
+                          logGroupName: Configuration.AWS_LOG_GROUP,
+                          logStreamName: Configuration.NODE_ENV,
+                          logEvents: [
+                              {
+                                  message: chunk.toString(),
+                                  timestamp: Date.now(),
+                              },
+                          ],
+                      });
+                      aws_client
+                          .send(command)
+                          .then(() => callback())
+                          .catch(console.log);
+                  },
+              }),
               format: winston.format.printf(
                   (info) => `[${info.level}] ${info.message}`,
               ),

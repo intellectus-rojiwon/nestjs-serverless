@@ -2,7 +2,7 @@ import * as nest from '@nestjs/common';
 import { HttpAdapterHost } from '@nestjs/core';
 import { Response } from 'express';
 
-import { logger } from './winston';
+import { logger } from './logger';
 
 @nest.Catch()
 export class ExceptionFilter implements nest.ExceptionFilter {

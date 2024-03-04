@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 
 import { AppModule } from './app/app.module';
+import { logger } from './infrastructure/logger';
 
 export namespace Backend {
     /**
@@ -20,6 +21,7 @@ export namespace Backend {
         );
         process.on('SIGINT', async () => {
             await app.close();
+            logger.log('nest application 종료');
             process.exit(0);
         });
         return app;
