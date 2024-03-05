@@ -1,8 +1,7 @@
+import { ErrorCode, ErrorResponse } from '@SRC/common/error_code';
+import { Regex } from '@SRC/common/regex';
 import core from '@nestia/core';
 import * as nest from '@nestjs/common';
-
-import { ErrorCode, ErrorResponse } from '@APP/common/error_code';
-import { Regex } from '@APP/common/regex';
 
 import { IBoardGet } from './dto/get';
 

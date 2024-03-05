@@ -1,10 +1,9 @@
+import { IUserGet } from '@SRC/app/users/presentation/dto/get';
+import { UsersUsecase } from '@SRC/app/users/usecase/users.usecase';
+import { ErrorCode, ErrorResponse } from '@SRC/common/error_code';
+import { Regex } from '@SRC/common/regex';
 import core from '@nestia/core';
 import * as nest from '@nestjs/common';
-
-import { IUserGet } from '@APP/app/users/presentation/dto/get';
-import { UsersUsecase } from '@APP/app/users/usecase/users.usecase';
-import { ErrorCode, ErrorResponse } from '@APP/common/error_code';
-import { Regex } from '@APP/common/regex';
 
 @nest.Controller('users')
 export class UsersController {

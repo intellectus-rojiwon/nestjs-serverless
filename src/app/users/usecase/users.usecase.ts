@@ -1,7 +1,6 @@
+import { ErrorCode } from '@SRC/common/error_code';
+import { Regex } from '@SRC/common/regex';
 import { Injectable, NotFoundException } from '@nestjs/common';
-
-import { ErrorCode } from '@APP/common/error_code';
-import { Regex } from '@APP/common/regex';
 
 @Injectable()
 export class UsersUsecase {

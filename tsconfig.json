@@ -33,7 +33,7 @@
         // "noResolve": false,
         "paths": {
             "@PRISMA": ["./prisma/client"],
-            "@APP/*": ["./src/*"],
+            "@SRC/*": ["./src/*"],
             "@TEST/*": ["./src/test/*"]
         },
         "resolveJsonModule": true,

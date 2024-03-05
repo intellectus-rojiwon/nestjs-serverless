@@ -1,7 +1,6 @@
+import { Backend } from '@SRC/backend';
+import { Configuration } from '@SRC/infrastructure/config';
 import { IConnection } from '@nestia/fetcher';
-
-import { Backend } from '@APP/backend';
-import { Configuration } from '@APP/infrastructure/config';
 
 import { Mocker } from './mocker';
 import { Test } from './runner';
