@@ -1,10 +1,10 @@
 import core from '@nestia/core';
 import * as nest from '@nestjs/common';
 
-import { IArticleGet } from '@APP/app/articles/presentation/dto/Get';
-import { IArticleGetList } from '@APP/app/articles/presentation/dto/GetList';
-import { ErrorCode, ErrorResponse } from '@APP/common/ErrorCode';
-import { Regex } from '@APP/common/Regex';
+import { IArticleGet } from '@APP/app/articles/presentation/dto/get';
+import { IArticleGetList } from '@APP/app/articles/presentation/dto/get_list';
+import { ErrorCode, ErrorResponse } from '@APP/common/error_code';
+import { Regex } from '@APP/common/regex';
 
 @nest.Controller('boards/:board_id/articles')
 export class ArticlesController {

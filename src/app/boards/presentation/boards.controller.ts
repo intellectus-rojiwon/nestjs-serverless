@@ -1,10 +1,10 @@
 import core from '@nestia/core';
 import * as nest from '@nestjs/common';
 
-import { ErrorCode, ErrorResponse } from '@APP/common/ErrorCode';
-import { Regex } from '@APP/common/Regex';
+import { ErrorCode, ErrorResponse } from '@APP/common/error_code';
+import { Regex } from '@APP/common/regex';
 
-import { IBoardGet } from './dto/Get';
+import { IBoardGet } from './dto/get';
 
 @nest.Controller('boards')
 export class BoardsController {
