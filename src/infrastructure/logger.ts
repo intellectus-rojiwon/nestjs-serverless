@@ -76,7 +76,11 @@ const write =
     (message: unknown): void => {
         winstonLogger.log(
             level,
-            JSON.stringify(message).replaceAll('\\n', '\n'),
+            new Date().toLocaleString(undefined, {
+                timeZoneName: 'longGeneric',
+            }) +
+                ' ' +
+                JSON.stringify(message).replaceAll('\\n', '\n'),
         );
     };
 
