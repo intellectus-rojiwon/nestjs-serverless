@@ -67,7 +67,7 @@ const winstonLogger = winston.createLogger({
         VERBOSE: 4,
         DEBUG: 5,
     },
-    level: Configuration.NODE_ENV === 'production' ? 'LOG' : 'DEBUG',
+    level: Configuration.NODE_ENV === 'production' ? 'WARN' : 'DEBUG',
     transports,
 });
 
