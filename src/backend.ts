@@ -1,29 +1,42 @@
-import { NestApplicationOptions } from '@nestjs/common';
+import * as nest from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 
 import { AppModule } from './app/app.module';
+import { Configuration } from './infrastructure/config';
 import { logger } from './infrastructure/logger';
 
-export namespace Backend {
-    /**
-    const friendlyDate = () =>
-        new Date().toLocaleString(undefined, {
-            timeZoneName: 'longGeneric',
-        });
-    */
+export class Backend {
+    private constructor(private readonly _application: nest.INestApplication) {}
 
-    export const open = async (options: NestApplicationOptions = {}) => {
+    static async create(
+        options: nest.NestApplicationOptions = {},
+    ): Promise<Backend> {
         const app = await NestFactory.create(AppModule, options);
         app.use(cookieParser()).use(
             helmet({ contentSecurityPolicy: true, hidePoweredBy: true }),
         );
+        const backend = new Backend(app);
         process.on('SIGINT', async () => {
-            await app.close();
-            logger.log('nest application 종료');
+            await backend.close();
             process.exit(0);
         });
-        return app;
-    };
+        await app.init();
+        logger.log('nest application created');
+        return backend;
+    }
+
+    async open() {
+        await this._application.listen(Configuration.PORT);
+    }
+
+    async close() {
+        await this._application.close();
+        logger.log('nest application closed');
+    }
+
+    getHttpAdapter() {
+        return this._application.getHttpAdapter().getInstance();
+    }
 }

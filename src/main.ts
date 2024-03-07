@@ -1,11 +1,12 @@
 import { Backend } from './backend';
-import { Configuration } from './infrastructure/config';
 import { logger } from './infrastructure/logger';
 
 const bootstrap = () =>
-    Backend.open({
+    Backend.create({
         logger,
         cors: { credentials: false },
-    }).then((app) => app.listen(Configuration.PORT));
+    })
+        .then((app) => app.open())
+        .catch(logger.fatal);
 
 void bootstrap();
