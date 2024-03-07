@@ -1,5 +1,5 @@
+import { Regex } from '@SRC/common/_regex';
 import { ErrorCode } from '@SRC/common/error_code';
-import { Regex } from '@SRC/common/regex';
 import { Injectable, NotFoundException } from '@nestjs/common';
 
 @Injectable()
