@@ -5,17 +5,17 @@ import { IConnection } from '@nestia/fetcher';
 import { Mocker } from './mocker';
 import { Test } from './runner';
 
-const getArg = (key: string): string | null => {
+const getArg = (key: string): string | undefined => {
     const key_index = process.argv.findIndex((val) => val === key);
-    if (key_index === -1 || key_index + 1 >= process.argv.length) return null;
+    if (key_index === -1 || key_index + 1 >= process.argv.length)
+        return undefined;
     return process.argv[key_index + 1]!;
 };
 
 void (async () => {
-    console.time('test time');
     Mocker.run();
-    const app = await Backend.open({ logger: false });
-    await app.listen(Configuration.PORT);
+    const app = await Backend.create({ logger: false });
+    await app.open();
     const connection: IConnection = {
         host: `http://localhost:${Configuration.PORT}`,
     };
@@ -23,11 +23,10 @@ void (async () => {
     const only = getArg('--only');
     const result = await Test.run({
         connection,
-        ...(skip ? { skip } : {}),
-        ...(only ? { only } : {}),
+        skip,
+        only,
     });
 
     await app.close();
-    console.timeEnd('test time');
-    process.exit(result ? 0 : -1);
+    process.exit(result);
 })();

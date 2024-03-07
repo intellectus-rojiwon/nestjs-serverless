@@ -4,18 +4,16 @@ import { IConnection } from '@nestia/fetcher';
 export namespace Test {
     interface IOptions {
         connection: IConnection;
-        skip?: string;
-        only?: string;
+        skip?: string | undefined;
+        only?: string | undefined;
     }
-
-    // export const report = () => {};
 
     /** 실제 테스트 함수를 실행하는 함수 */
     export const run = async ({
         connection,
         skip,
         only,
-    }: IOptions): Promise<boolean> => {
+    }: IOptions): Promise<0 | -1> => {
         const report = await DynamicExecutor.validate({
             prefix: 'test_',
             parameters: () => [connection],
@@ -39,7 +37,7 @@ export namespace Test {
                 exe: T,
             ): exe is T & { error: Error } => exe.error !== null,
         );
-        if (executions.length === 0) return true;
-        return false;
+        if (executions.length === 0) return 0;
+        return -1;
     };
 }
