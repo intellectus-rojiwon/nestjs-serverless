@@ -8,7 +8,7 @@ let _handler: Handler | null = null;
 
 const bootstrap = async (): Promise<Handler> => {
     const app = await Backend.create({ logger });
-    return sls({ app: app.getHttpAdapter().getInstance() });
+    return sls({ app: app.getHttpAdapter() });
 };
 
 export const handler: Handler = async (event, context, callback) => {

@@ -2,6 +2,7 @@ import * as nest from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
+import { RequestListener } from 'http';
 
 import { AppModule } from './app/app.module';
 import { Configuration } from './infrastructure/config';
@@ -36,7 +37,7 @@ export class Backend {
         logger.log('nest application closed');
     }
 
-    getHttpAdapter() {
+    getHttpAdapter(): RequestListener {
         return this._application.getHttpAdapter().getInstance();
     }
 }
