@@ -1,6 +1,6 @@
 import { IArticleGet } from '@SRC/app/articles/presentation/dto/get';
 import { IArticleGetList } from '@SRC/app/articles/presentation/dto/get_list';
-import { ErrorCode, ErrorResponse } from '@SRC/common/error_code';
+import { ErrorCode } from '@SRC/common/error_code';
 import { Regex } from '@SRC/common/regex';
 import core from '@nestia/core';
 import * as nest from '@nestjs/common';
@@ -32,9 +32,7 @@ export class ArticlesController {
      * @param article_id 게시글 id
      * @return 게시글 상세 정보
      */
-    @core.TypedException<ErrorResponse<ErrorCode.ArticleNotFound>>(
-        nest.HttpStatus.NOT_FOUND,
-    )
+    @core.TypedException<ErrorCode.ArticleNotFound>(nest.HttpStatus.NOT_FOUND)
     @core.TypedRoute.Get(':article_id')
     async get(
         @core.TypedParam('board_id') board_id: Regex.UUID,

@@ -7,7 +7,7 @@ export class UsersUsecase {
     get(user_id: Regex.UUID) {
         user_id;
         throw new NotFoundException({
-            code: 'USER_NOT_FOUND' satisfies ErrorCode.UserNotFound,
-        });
+            code: 'USER_NOT_FOUND',
+        } satisfies ErrorCode.UserNotFound);
     }
 }

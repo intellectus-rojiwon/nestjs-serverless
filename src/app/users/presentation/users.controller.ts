@@ -1,6 +1,6 @@
 import { IUserGet } from '@SRC/app/users/presentation/dto/get';
 import { UsersUsecase } from '@SRC/app/users/usecase/users.usecase';
-import { ErrorCode, ErrorResponse } from '@SRC/common/error_code';
+import { ErrorCode } from '@SRC/common/error_code';
 import { Regex } from '@SRC/common/regex';
 import core from '@nestia/core';
 import * as nest from '@nestjs/common';
@@ -17,9 +17,7 @@ export class UsersController {
      * @param user_id 게시글 id
      * @return 사용자 정보
      */
-    @core.TypedException<ErrorResponse<ErrorCode.UserNotFound>>(
-        nest.HttpStatus.NOT_FOUND,
-    )
+    @core.TypedException<ErrorCode.UserNotFound>(nest.HttpStatus.NOT_FOUND)
     @core.TypedRoute.Get(':user_id')
     async get(
         @core.TypedParam('user_id') user_id: Regex.UUID,

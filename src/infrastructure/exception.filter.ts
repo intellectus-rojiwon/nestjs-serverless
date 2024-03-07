@@ -14,16 +14,10 @@ export class ExceptionFilter implements nest.ExceptionFilter {
         const res = ctx.getResponse<Response>();
         if (this.isHttpException(exception)) {
             const status = exception.getStatus();
-            const message = exception.message;
-            const code: string | undefined = (exception.getResponse() as any)
-                ?.code;
-            if (typeof code === 'string') {
-                logger.warn(exception);
-                httpAdapter.reply(res, { code, message }, status);
-                return;
-            }
-            // exception from nestjs framwork or nestia lib
-            httpAdapter.reply(res, { code: 'NATIVE_ERROR', message }, status);
+            const { code = 'NATIVE_ERROR', message } =
+                exception.getResponse() as { code?: string; message?: string };
+            logger.warn(exception);
+            httpAdapter.reply(res, { code, message }, status);
             return;
         }
         logger.error(exception);
