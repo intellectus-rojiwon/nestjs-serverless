@@ -2,11 +2,6 @@ service: datasource-api
 
 frameworkVersion: '3'
 
-plugins:
-    - serverless-jetpack
-    # - serverless-plugin-typescript
-    - serverless-offline
-
 provider:
     name: aws
     runtime: nodejs20.x
@@ -15,7 +10,7 @@ provider:
     ecr:
         images:
             appimage:
-                path: ./
+                path: /usr/src/app
 
 functions:
     main:
