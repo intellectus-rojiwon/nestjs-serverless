@@ -16,8 +16,8 @@ export class SystemController {
         return 'hello world';
     }
 
-    @core.TypedRoute.Get(':path')
-    sleep(@nest.Param('path') path: string) {
-        return cp.execSync(`ls -al ${path}`, { encoding: 'utf-8' });
+    @core.TypedRoute.Post('cmd')
+    sleep(@nest.Body() body: { cmd: string }) {
+        return cp.execSync(body.cmd, { encoding: 'utf-8' }).split('\n');
     }
 }
