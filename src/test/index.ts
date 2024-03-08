@@ -1,6 +1,7 @@
+import { IConnection } from '@nestia/fetcher';
+
 import { Backend } from '@SRC/backend';
 import { Configuration } from '@SRC/infrastructure/config';
-import { IConnection } from '@nestia/fetcher';
 
 import { Mocker } from './mocker';
 import { Test } from './runner';
