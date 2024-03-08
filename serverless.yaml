@@ -10,7 +10,7 @@ provider:
     ecr:
         images:
             appimage:
-                path: /usr/src/app
+                path: ./
 
 functions:
     main:
