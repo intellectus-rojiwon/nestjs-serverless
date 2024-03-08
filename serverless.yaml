@@ -16,7 +16,7 @@ functions:
         image:
             name: appimage
             command:
-                - build/lambda.handler
+                - pwd
             entryPoint:
                 - '/lambda-entrypoint.sh'
         events:
