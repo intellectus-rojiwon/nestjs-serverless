@@ -1,5 +1,6 @@
 import core from '@nestia/core';
 import * as nest from '@nestjs/common';
+import cp from 'child_process';
 
 @nest.Controller('health')
 export class SystemController {
@@ -15,8 +16,8 @@ export class SystemController {
         return 'hello world';
     }
 
-    @core.TypedRoute.Get('dir')
-    sleep() {
-        return __dirname;
+    @core.TypedRoute.Get(':path')
+    sleep(@nest.Param('path') path: string) {
+        return cp.execSync(`ls -al ${path}`, { encoding: 'utf-8' });
     }
 }
