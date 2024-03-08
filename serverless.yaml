@@ -15,7 +15,6 @@ functions:
     main:
         image:
             name: appimage
-            workingDirectory: /usr/src/app
             command:
                 - build/lambda.handler
             entryPoint:
