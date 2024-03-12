@@ -15,9 +15,6 @@ jobs:
               with:
                   node-version: 20
 
-            - name: Dependency Install
-              run: npm ci
-
             - name: Configure AWS credentials 🔒
               uses: aws-actions/configure-aws-credentials@v4
               with:
@@ -30,4 +27,4 @@ jobs:
               uses: aws-actions/amazon-ecr-login@v2
 
             - name: Serverless Deploy ✨
-              run: npm run sls:deploy
+              run: npx sls deploy
