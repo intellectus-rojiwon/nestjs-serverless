@@ -2,6 +2,8 @@ import * as nest from '@nestjs/common';
 import { HttpAdapterHost } from '@nestjs/core';
 import { Response } from 'express';
 
+import { Exception } from '@SRC/common/exception';
+
 import { logger } from './logger';
 
 @nest.Catch()
@@ -12,14 +14,27 @@ export class ExceptionFilter implements nest.ExceptionFilter {
         const { httpAdapter } = this.httpAdapterHost;
         const ctx = host.switchToHttp();
         const res = ctx.getResponse<Response>();
+
+        if (exception instanceof Exception) {
+            const status = exception.getStatus();
+            const body = exception.body;
+            logger.warn(exception);
+            httpAdapter.reply(res, body, status);
+        }
+
         if (this.isHttpException(exception)) {
             const status = exception.getStatus();
-            const { code = 'NATIVE_ERROR', message } =
-                exception.getResponse() as { code?: string; message?: string };
-            logger.warn(exception);
-            httpAdapter.reply(res, { code, message }, status);
+            const response = exception.getResponse();
+            const message =
+                typeof response === 'object' &&
+                'message' in response &&
+                typeof response['message'] === 'string'
+                    ? response['message']
+                    : undefined;
+            httpAdapter.reply(res, { code: 'NATIVE_ERROR', message }, status);
             return;
         }
+
         logger.error(exception);
         httpAdapter.reply(
             res,
