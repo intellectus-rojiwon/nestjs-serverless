@@ -20,6 +20,7 @@ export class ExceptionFilter implements nest.ExceptionFilter {
             const body = exception.body;
             logger.warn(exception);
             httpAdapter.reply(res, body, status);
+            return;
         }
 
         if (this.isHttpException(exception)) {
