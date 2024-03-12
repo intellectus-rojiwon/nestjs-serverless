@@ -15,6 +15,8 @@ export class ExceptionFilter implements nest.ExceptionFilter {
         const ctx = host.switchToHttp();
         const res = ctx.getResponse<Response>();
 
+        const internal_server_error = 'INTERNAL_SERVER_ERROR';
+
         if (exception instanceof Exception) {
             const status = exception.getStatus();
             const body = exception.body;
@@ -32,14 +34,20 @@ export class ExceptionFilter implements nest.ExceptionFilter {
                 typeof response['message'] === 'string'
                     ? response['message']
                     : undefined;
-            httpAdapter.reply(res, { code: 'NATIVE_ERROR', message }, status);
+            const code =
+                status === 400
+                    ? 'INVALID_INPUT'
+                    : status === 404
+                      ? 'NOT_FOUND_API'
+                      : internal_server_error;
+            httpAdapter.reply(res, { code, message }, status);
             return;
         }
 
         logger.error(exception);
         httpAdapter.reply(
             res,
-            { code: 'NTERNAL_SERVER_ERROR' },
+            { code: internal_server_error },
             nest.HttpStatus.INTERNAL_SERVER_ERROR,
         );
     }

@@ -7,7 +7,7 @@ export class Exception<
         public readonly body: T,
         status: number,
     ) {
-        super(body, status);
+        super(body.message ?? body.code, status);
         this.body = body;
     }
 }
